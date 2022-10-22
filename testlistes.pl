@@ -135,6 +135,12 @@ lt_six([1, 2, 3, 4, 5, 6]).
 ?- expect_false("sousl-liste trop longue de L6", (lt_six(L6), sous_liste([0, 1, 2, 3, 4, 5, 6], L6, _))).
 
 %
+% sous_liste/4
+%
+
+?- expect_true("sous-liste valide, 5 éléments", sous_liste([3, 4], [1, 2, 3, 4, 5], 2, [1, 2, 5])).
+
+%
 % inverse
 %
 

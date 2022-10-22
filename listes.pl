@@ -82,7 +82,11 @@ sous_liste(S, [_|Xs], N) :- sous_liste(S, Xs, N1), N is N1 + 1.
 % N et que M est identique à L sans la sous-liste en question
 %
 
+sous_liste(S, L, 0, M) :- prefixe(S, L), concatenation(S, M, L), !.
 
+sous_liste(S, [X|Xs], N, [X|M]) :- 
+    sous_liste(S, Xs, N1, M), 
+    N is N1 + 1.
 
 %
 % inverse(L, M) si M contient les éléments de L en ordre inverse.
@@ -277,12 +281,12 @@ tri_fusion(L, Lt) :-
 % tri_rapide
 %
 
-pivote(Liste, Petits, Grands) :-
+pivote(Liste, Pivot, Petits, Grands) :-
     write("pivote: "), write(Liste), nl, 
     cardinal(Liste, Card),
     Ipiv is random(Card-1),
-    enieme(Ipiv, Liste, Pivot),
-    aux_pivote(Pivot, Liste, Petits, Grands).
+    insere_enieme(Ipiv, ListeSansPivot, Pivot, Liste),
+    aux_pivote(Pivot, ListeSansPivot, Petits, Grands).
 
 aux_pivote(_, [], [], []).
 
@@ -304,11 +308,11 @@ tri_rapide([X, Y], [Y, X]) :- X >= Y.
 
 tri_rapide(L, Lt) :-
     write(L), nl,
-    pivote(L, Petit, Grand),
+    pivote(L, Pivot, Petit, Grand),
     write(Petit), nl, write(Grand), nl,
     tri_rapide(Petit, Petit_trie),
     tri_rapide(Grand, Grand_trie),
-    concatenation(Petit_trie, Grand_trie, Lt).
+    concatenation(Petit_trie, [Pivot|Grand_trie], Lt).
 
 
 
