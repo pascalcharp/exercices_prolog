@@ -243,10 +243,35 @@ lt_six([1, 2, 3, 4, 5, 6]).
 ?- expect_false("elements parite mixtes faux", (elements_parite([0, 1, 2, 3, 4, 5], [0, 4], [1, 3, 5], 1, 3))).
 
 %
+% tri_fusion
 %
+
+?- expect_true("tri: vide vide", tri_fusion([], [])).
+?- expect_true("tri: [X] [X]", tri_fusion([1], [1])).
+?- expect_true("tri cas valide sans doublons", tri_fusion([2, 8, 3, 9, 1, 0, 4], [0, 1, 2, 3, 4, 8, 9])).
+?- expect_true("tri: déja trié inchangé", tri_fusion([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])).
+?- expect_true("tri éléments pareils", tri_fusion([1, 1, 1, 1, 1], [1, 1, 1, 1, 1])).
+?- expect_true("tri cas valide avec doublons", tri_fusion([3, 3, 1, 2, 4, 1, 3, 2, 1, 4], [1, 1, 1, 2, 2, 3, 3, 3, 4, 4])).
+
+%
+% tri_fusion
 %
 
+?- expect_true("tri: vide vide", tri_fusion([], [])).
+?- expect_true("tri: [X] [X]", tri_fusion([1], [1])).
+?- expect_true("tri cas valide sans doublons", tri_fusion([2, 8, 3, 9, 1, 0, 4], [0, 1, 2, 3, 4, 8, 9])).
+?- expect_true("tri: déja trié inchangé", tri_fusion([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])).
+?- expect_true("tri éléments pareils", tri_fusion([1, 1, 1, 1, 1], [1, 1, 1, 1, 1])).
+?- expect_true("tri cas valide avec doublons", tri_fusion([3, 3, 1, 2, 4, 1, 3, 2, 1, 4], [1, 1, 1, 2, 2, 3, 3, 3, 4, 4])).
 
+%
+% tri_rapide
+%
 
-
+?- expect_true("tri: vide vide", tri_rapide([], [])).
+?- expect_true("tri: [X] [X]", tri_rapide([1], [1])).
+?- expect_true("tri cas valide sans doublons", tri_rapide([2, 8, 3, 9, 1, 0, 4], [0, 1, 2, 3, 4, 8, 9])).
+?- expect_true("tri: déja trié inchangé", tri_rapide([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])).
+?- expect_true("tri éléments pareils", tri_rapide([1, 1, 1, 1, 1], [1, 1, 1, 1, 1])).
+?- expect_true("tri cas valide avec doublons", tri_rapide([3, 3, 1, 2, 4, 1, 3, 2, 1, 4], [1, 1, 1, 2, 2, 3, 3, 3, 4, 4])).
 

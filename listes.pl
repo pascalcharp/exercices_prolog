@@ -282,7 +282,6 @@ tri_fusion(L, Lt) :-
 %
 
 pivote(Liste, Pivot, Petits, Grands) :-
-    write("pivote: "), write(Liste), nl, 
     cardinal(Liste, Card),
     Ipiv is random(Card-1),
     insere_enieme(Ipiv, ListeSansPivot, Pivot, Liste),
@@ -307,9 +306,7 @@ tri_rapide([X, Y], [X, Y]) :- X < Y.
 tri_rapide([X, Y], [Y, X]) :- X >= Y.
 
 tri_rapide(L, Lt) :-
-    write(L), nl,
     pivote(L, Pivot, Petit, Grand),
-    write(Petit), nl, write(Grand), nl,
     tri_rapide(Petit, Petit_trie),
     tri_rapide(Grand, Grand_trie),
     concatenation(Petit_trie, [Pivot|Grand_trie], Lt).
