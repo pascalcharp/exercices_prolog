@@ -216,6 +216,29 @@ elements_parite([X|Xs], P, [X|Is], Np, Ni) :-
     Ni is  Ni1 + 1.
 
 %
+% tri_insertion(L, T) est vrai si T comporte les mêmes éléments que L dans l'ordre 
+%
+
+tri_insertion([], []).
+
+tri_insertion([X], [X]).
+
+tri_insertion([X|Xs], T) :-
+    tri_insertion(Xs, Xst),
+    insertion(X, Xst, T).
+
+insertion(X, [], [X]).
+
+insertion(X, [L|Ls], [X|[L|Ls]]) :-
+    X =< L.
+
+insertion(X, [L|Ls], [L|Xs]) :-
+    X > L,
+    insertion(X, Ls, Xs).
+
+
+
+%
 % tri fusion(L, Lt) est vrai si Lt contient tous les éléments de L en ordre croissant.
 %
 
@@ -248,6 +271,44 @@ tri_fusion(L, Lt) :-
     tri_fusion(Lg, Lgt),
     tri_fusion(Ld, Ldt),
     fusion(Lgt, Ldt, Lt).
+
+
+%
+% tri_rapide
+%
+
+pivote(Liste, Petits, Grands) :-
+    write("pivote: "), write(Liste), nl, 
+    cardinal(Liste, Card),
+    Ipiv is random(Card-1),
+    enieme(Ipiv, Liste, Pivot),
+    aux_pivote(Pivot, Liste, Petits, Grands).
+
+aux_pivote(_, [], [], []).
+
+aux_pivote(Pivot, [E|Xs], [E|Ps], Gs) :-
+    E < Pivot,
+    aux_pivote(Pivot, Xs, Ps, Gs).
+
+aux_pivote(Pivot, [E|Xs], Ps, [E|Gs]) :-
+    E >= Pivot,
+    aux_pivote(Pivot, Xs, Ps, Gs).
+
+tri_rapide([], []).
+
+tri_rapide([X], [X]).
+
+tri_rapide([X, Y], [X, Y]) :- X < Y.
+
+tri_rapide([X, Y], [Y, X]) :- X >= Y.
+
+tri_rapide(L, Lt) :-
+    write(L), nl,
+    pivote(L, Petit, Grand),
+    write(Petit), nl, write(Grand), nl,
+    tri_rapide(Petit, Petit_trie),
+    tri_rapide(Grand, Grand_trie),
+    concatenation(Petit_trie, Grand_trie, Lt).
 
 
 
