@@ -195,7 +195,7 @@ elements_pairs_n([], [], 0).
 
 elements_pairs_n([X|Xs], [X|Ps], N) :- 
     (X mod 2 =:= 0), 
-    elements_pairs_n(Xs, Ps, N1), 
+    elements_pairs_n(Xs, Ps, N1),
     N is N1+1.
 
 elements_pairs_n([X|Xs], Ps, N) :- 
